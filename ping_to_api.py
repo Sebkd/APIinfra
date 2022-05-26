@@ -1,3 +1,6 @@
+"""
+Взаимодействие с API Инфра
+"""
 from urllib.parse import urljoin, urlencode
 
 import requests
@@ -79,30 +82,48 @@ def register_call(urlbase, headers, user_id, calltype_id, urgency_id, call_summa
 
 
 def main(login, password, url, headers):
-    encrypted_password = get_password_encrypted(password=password, key=13)
-    data_input = login_to_api(urlbase=url, headers=headers, login=login, enc_pass=encrypted_password)
+    try:
+        encrypted_password = get_password_encrypted(password=password, key=13)
+        data_input = login_to_api(urlbase=url, headers=headers, login=login, enc_pass=encrypted_password)
+        data_json_input = data_input.json()
+        if not data_json_input.get('Success'):
+            raise Exception('login_to_api failed')
 
-    # забираем значение UserID
-    data_info_auth = get_info_auth(urlbase=url, headers=headers)
-    data_json_info_auth = data_info_auth.json()
-    user_id = data_json_info_auth.get('UserID')
+        # забираем значение UserID
+        data_info_auth = get_info_auth(urlbase=url, headers=headers)
+        if not data_info_auth:  # null
+            raise Exception('get_info_auth failed')
+        data_json_info_auth = data_info_auth.json()
+        user_id = data_json_info_auth.get('UserID')
 
-    # срочность заявки
-    data_urgent_list = get_urgent_list(urlbase=url, headers=headers)
-    data_json_urgent_list = data_urgent_list.json()
-    urgency_id = data_json_urgent_list[2].get('ID')
+        # срочность заявки
+        data_urgent_list = get_urgent_list(urlbase=url, headers=headers)
+        data_json_urgent_list = data_urgent_list.json()
+        if not data_json_urgent_list[0].get('ID'):
+            raise Exception('get_urgent_list failed')
+        urgency_id = data_json_urgent_list[2].get('ID')
 
-    data_call_type = get_call_type_list_for_client(urlbase=url, headers=headers)
-    data_json_call_type = data_call_type.json()
-    # название заявки
-    call_summary_name = data_json_call_type[3].get('Name')
-    # ИД типа заявки
-    calltype_id = data_json_call_type[3].get('ID')
+        data_call_type = get_call_type_list_for_client(urlbase=url, headers=headers)
+        data_json_call_type = data_call_type.json()
+        if not data_json_urgent_list[0].get('ID'):
+            raise Exception('get_call_type_list_for_client')
+        # название заявки
+        call_summary_name = data_json_call_type[3].get('Name')
+        # ИД типа заявки
+        calltype_id = data_json_call_type[3].get('ID')
 
-    register_call(urlbase=url, headers=headers, user_id=user_id, calltype_id=calltype_id,
-                  urgency_id=urgency_id, call_summary_name=call_summary_name)
+        data_register_call = register_call(urlbase=url, headers=headers, user_id=user_id, calltype_id=calltype_id,
+                                           urgency_id=urgency_id, call_summary_name=call_summary_name)
+        data_json_register_call = data_register_call.json()
+        if not data_json_register_call.get('CallID'):
+            raise Exception('register_call failed')
+        data_logout = logout_from_api(urlbase=url, headers=headers)
+        data_json_logout = data_logout.json()
+        if data_json_logout.get('Message'):
+            raise Exception('get_info_auth failed')
 
-    logout_from_api(urlbase=url, headers=headers)
+    finally:
+        return True
 
 
 if __name__ == '__main__':
@@ -115,4 +136,5 @@ if __name__ == '__main__':
     LOGIN = 'user'
     PASSWORD = 'user'
 
-    main(url=URL, headers=HEADERS, login=LOGIN, password=PASSWORD)
+    if main(url=URL, headers=HEADERS, login=LOGIN, password=PASSWORD):
+        print('over')
