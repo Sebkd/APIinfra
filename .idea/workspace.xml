@@ -26,14 +26,15 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/andrey/PyCharm_Project/APIinfra&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/andrey/PyCharm_Project/APIinfra",
+    "settings.editor.selected.configurable": "com.leinardi.pycharm.pylint.PylintConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ping_to_api" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="APIinfra" />
@@ -73,6 +74,7 @@
       <updated>1653564951257</updated>
       <workItem from="1653564952601" duration="1912000" />
       <workItem from="1653566891051" duration="10638000" />
+      <workItem from="1653590856817" duration="4267000" />
     </task>
     <servers />
   </component>
@@ -80,6 +82,6 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/APIinfra$ping_to_api.coverage" NAME="ping_to_api Coverage Results" MODIFIED="1653573563056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/APIinfra$ping_to_api.coverage" NAME="ping_to_api Coverage Results" MODIFIED="1653594006713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
